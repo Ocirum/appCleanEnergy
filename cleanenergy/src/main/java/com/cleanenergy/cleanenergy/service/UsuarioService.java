@@ -6,7 +6,11 @@ import com.cleanenergy.cleanenergy.repository.UsuarioRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.util.ReflectionUtils.setField;
 
 @Service
 public class UsuarioService {
@@ -43,5 +47,21 @@ public class UsuarioService {
         } catch (DataAccessException e) {
             throw new RuntimeException("Error al eliminar usuario");
         }
+    }
+    public Usuario actualizarUsuario(int documento, Map<String, Object> cambios) {
+        Usuario existente = usuarioRepository.findById(documento)
+                .orElseThrow(() -> new RuntimeException("Linea de credito no encontrada"));
+
+        cambios.forEach((key, value) -> {
+            Field field;
+            field = findField(Usuario.class, key);
+            field.setAccessible(true);
+            setField(field, existente, value);
+        });
+        return usuarioRepository.save(existente);
+    }
+
+    private Field findField(Class<Usuario> usuario, String key) {
+        return null;
     }
 }

@@ -9,11 +9,11 @@ import jakarta.persistence.Id;
 public class TipoEnergia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_energia;
+    private int idEnergia;
     private String tipoEnergia;
 
-    public TipoEnergia(int id_energia, String tipoEnergia) {
-        this.id_energia = id_energia;
+    public TipoEnergia(int idEnergia, String tipoEnergia) {
+        this.idEnergia = idEnergia;
         this.tipoEnergia = tipoEnergia;
     }
 
@@ -21,12 +21,12 @@ public class TipoEnergia {
 
     }
 
-    public int getId_energia() {
-        return id_energia;
+    public int getIdEnergia() {
+        return idEnergia;
     }
 
-    public void setId_energia(int id_energia) {
-        this.id_energia = id_energia;
+    public void setIdEnergia(int idEnergia) {
+        this.idEnergia = idEnergia;
     }
 
     public String getTipoEnergia() {

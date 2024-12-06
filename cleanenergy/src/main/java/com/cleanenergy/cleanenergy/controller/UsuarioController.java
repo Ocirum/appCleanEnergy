@@ -2,9 +2,11 @@ package com.cleanenergy.cleanenergy.controller;
 
 import com.cleanenergy.cleanenergy.model.Usuario;
 import com.cleanenergy.cleanenergy.service.UsuarioService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuario")
@@ -36,7 +38,14 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarUsuario(@PathVariable int id){
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable int id){
         usuarioService.eliminarUsuario(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{documento}")
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int documento, @RequestBody Map<String, Object> cambios){
+        Usuario actualizado = usuarioService.actualizarUsuario(documento, cambios);
+        return ResponseEntity.ok(actualizado);
     }
 }
