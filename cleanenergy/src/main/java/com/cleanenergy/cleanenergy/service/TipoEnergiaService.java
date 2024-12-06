@@ -5,7 +5,11 @@ import com.cleanenergy.cleanenergy.repository.TipoEnergiaRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.util.ReflectionUtils.setField;
 
 @Service
 public class TipoEnergiaService {
@@ -38,5 +42,22 @@ public class TipoEnergiaService {
         }catch (DataAccessException e){
             throw new RuntimeException("Error al eliminar tipo de energía");
         }
+    }
+
+    public TipoEnergia actualizarTipoEnergia(int id_energia, Map<String, Object> cambios) {
+        TipoEnergia existente = tipoEnergiaRepository.findById(id_energia)
+                .orElseThrow(() -> new RuntimeException("Linea de credito no encontrada"));
+
+        cambios.forEach((key, value) -> {
+            Field field;
+            field = findField(TipoEnergia.class, key);
+            field.setAccessible(true);
+            setField(field, existente, value);
+        });
+        return tipoEnergiaRepository.save(existente);
+    }
+
+    private Field findField(Class<TipoEnergia> tipoEnergia, String key) {
+        return null;
     }
 }
