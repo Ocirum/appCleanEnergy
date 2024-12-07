@@ -25,6 +25,7 @@ public class TipoEnergiaController {
         return tipoEnergiaService.insertarTipoEnergia(tiposEnergia);
     }*/
 
+    @PostMapping
     public ResponseEntity<?> insertarTipoEnergia(@RequestBody TipoEnergia tiposEnergia) {
         try {
             TipoEnergia nuevoTipo = tipoEnergiaService.insertarTipoEnergia(tiposEnergia);
@@ -42,6 +43,11 @@ public class TipoEnergiaController {
     @GetMapping("/{id}")
     public TipoEnergia consultarTipoEnergiaPorId(@PathVariable int id){
         return tipoEnergiaService.consultarTipoEnergiaPorId(id);
+    }
+
+    @GetMapping("/tipo/{tipoEnergia}")
+    public List<TipoEnergia> consultarTipoEnergiaPorTipoEnergia(@PathVariable String tipoEnergia){
+        return tipoEnergiaService.consultarTipoEnergiaPorTipoEnergia(tipoEnergia);
     }
 
     @PatchMapping("/{id_energia}")

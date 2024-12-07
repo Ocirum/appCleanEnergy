@@ -21,10 +21,10 @@ public class ConsumoEnergia {
 
     private LocalDate fecha;
 
-    private double consumo;
+    private Double consumo;
     private String unidadMedida;
 
-    public ConsumoEnergia(int id_consumo, Usuario usuario, TipoEnergia tipoEnergia, LocalDate fecha, double consumo, String unidadMedida) {
+    public ConsumoEnergia(int id_consumo, Usuario usuario, TipoEnergia tipoEnergia, LocalDate fecha, Double consumo, String unidadMedida) {
         this.id_consumo = id_consumo;
         this.usuario = usuario;
         this.tipoEnergia = tipoEnergia;
@@ -68,11 +68,11 @@ public class ConsumoEnergia {
         this.fecha = fecha;
     }
 
-    public double getConsumo() {
+    public Double getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(double consumo) {
+    public void setConsumo(Double consumo) {
         this.consumo = consumo;
     }
 

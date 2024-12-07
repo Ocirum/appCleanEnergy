@@ -66,6 +66,10 @@ public class UsuarioService {
     }
 
     private Field findField(Class<Usuario> usuario, String key) {
-        return null;
+        try {
+            return usuario.getDeclaredField(key);
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
     }
 }
