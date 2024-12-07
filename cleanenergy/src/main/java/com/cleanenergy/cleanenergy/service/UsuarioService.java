@@ -22,6 +22,9 @@ public class UsuarioService {
 
     public Usuario insertarUsuario(Usuario usuario) {
         try {
+            if (usuarioRepository.existsById(usuario.getDocumento())) {
+                throw new RuntimeException("Ya existe un usuario con este documento");
+            }
             return usuarioRepository.save(usuario);
         } catch (DataAccessException e) {
             throw new RuntimeException("Error al insertar usuario");
@@ -48,6 +51,7 @@ public class UsuarioService {
             throw new RuntimeException("Error al eliminar usuario");
         }
     }
+
     public Usuario actualizarUsuario(int documento, Map<String, Object> cambios) {
         Usuario existente = usuarioRepository.findById(documento)
                 .orElseThrow(() -> new RuntimeException("Linea de credito no encontrada"));

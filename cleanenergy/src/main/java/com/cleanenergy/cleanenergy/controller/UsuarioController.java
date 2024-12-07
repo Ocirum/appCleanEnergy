@@ -2,6 +2,7 @@ package com.cleanenergy.cleanenergy.controller;
 
 import com.cleanenergy.cleanenergy.model.Usuario;
 import com.cleanenergy.cleanenergy.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,34 +18,44 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PostMapping
-    public Usuario insertarUsuario(@RequestBody Usuario usuarios){
+    /*@PostMapping
+    public Usuario insertarUsuario(@RequestBody Usuario usuarios) {
         return usuarioService.insertarUsuario(usuarios);
+    }*/
+
+    @PostMapping
+    public ResponseEntity<?> insertarUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario nuevoUsuario = usuarioService.insertarUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @GetMapping
-    public List<Usuario> consultarUsuario(){
+    public List<Usuario> consultarUsuario() {
         return usuarioService.consultarUsuario();
     }
 
     @GetMapping("/{nombre}")
-    public  List<Usuario> consultarPorNombre(@PathVariable String nombre){
+    public List<Usuario> consultarPorNombre(@PathVariable String nombre) {
         return usuarioService.consultarPorNombre(nombre);
     }
 
     @GetMapping("/{id}")
-    public Usuario consultarPorId(@PathVariable int id){
+    public Usuario consultarPorId(@PathVariable int id) {
         return usuarioService.consultarPorId(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarUsuario(@PathVariable int id){
+    public ResponseEntity<Void> eliminarUsuario(@PathVariable int id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{documento}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int documento, @RequestBody Map<String, Object> cambios){
+    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable int documento, @RequestBody Map<String, Object> cambios) {
         Usuario actualizado = usuarioService.actualizarUsuario(documento, cambios);
         return ResponseEntity.ok(actualizado);
     }

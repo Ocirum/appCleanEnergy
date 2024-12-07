@@ -21,6 +21,9 @@ public class TipoEnergiaService {
 
     public TipoEnergia insertarTipoEnergia(TipoEnergia tipoEnergia){
         try{
+            if (tipoEnergiaRepository.existsById(tipoEnergia.getIdEnergia())) {
+                throw new RuntimeException("Ya existe un usuario con este documento");
+            }
             return tipoEnergiaRepository.save(tipoEnergia);
         }catch (DataAccessException e){
             throw new RuntimeException("Error el insertar tipo de energia");
