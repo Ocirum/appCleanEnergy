@@ -1,7 +1,9 @@
 package com.cleanenergy.cleanenergy.controller;
 
 import com.cleanenergy.cleanenergy.model.TipoEnergia;
+import com.cleanenergy.cleanenergy.model.Usuario;
 import com.cleanenergy.cleanenergy.service.TipoEnergiaService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +20,18 @@ public class TipoEnergiaController {
         this.tipoEnergiaService = tipoEnergiaService;
     }
 
-    @PostMapping
-    public TipoEnergia insertarTiposEnergia(@RequestBody TipoEnergia tiposEnergia){
+    /*@PostMapping
+    public TipoEnergia insertarTipoEnergia(@RequestBody TipoEnergia tiposEnergia){
         return tipoEnergiaService.insertarTipoEnergia(tiposEnergia);
+    }*/
+
+    public ResponseEntity<?> insertarTipoEnergia(@RequestBody TipoEnergia tiposEnergia) {
+        try {
+            TipoEnergia nuevoTipo = tipoEnergiaService.insertarTipoEnergia(tiposEnergia);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoTipo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @GetMapping
