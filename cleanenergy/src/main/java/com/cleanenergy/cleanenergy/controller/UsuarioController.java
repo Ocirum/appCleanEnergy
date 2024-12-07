@@ -38,7 +38,7 @@ public class UsuarioController {
         return usuarioService.consultarUsuario();
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("/nombre/{nombre}")
     public List<Usuario> consultarPorNombre(@PathVariable String nombre) {
         return usuarioService.consultarPorNombre(nombre);
     }

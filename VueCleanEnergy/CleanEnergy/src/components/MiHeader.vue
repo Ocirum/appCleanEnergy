@@ -48,7 +48,6 @@ img {
 nav {
     background-color: 0;
     margin-left: auto;
-    width: 40%;
     display: flex;
     align-items: center;
 }

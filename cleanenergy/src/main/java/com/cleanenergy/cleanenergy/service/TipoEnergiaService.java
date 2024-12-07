@@ -1,6 +1,7 @@
 package com.cleanenergy.cleanenergy.service;
 
 import com.cleanenergy.cleanenergy.model.TipoEnergia;
+import com.cleanenergy.cleanenergy.model.Usuario;
 import com.cleanenergy.cleanenergy.repository.TipoEnergiaRepository;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public class TipoEnergiaService {
                 .orElseThrow(() -> new RuntimeException("Tipo de energía no encontrado"));
     }
 
+    public List<TipoEnergia> consultarTipoEnergiaPorTipoEnergia(String tipoEnergia){
+        return tipoEnergiaRepository.findByTipoEnergia(tipoEnergia);
+    }
+
     public void eliminarTipoEnergia(int id){
         try{
             tipoEnergiaRepository.deleteById(id);
@@ -61,6 +66,10 @@ public class TipoEnergiaService {
     }
 
     private Field findField(Class<TipoEnergia> tipoEnergia, String key) {
-        return null;
+        try {
+            return tipoEnergia.getDeclaredField(key);
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
     }
 }

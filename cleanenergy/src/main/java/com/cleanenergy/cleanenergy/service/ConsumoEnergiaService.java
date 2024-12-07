@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.springframework.util.ReflectionUtils.setField;
 
@@ -48,21 +49,38 @@ public class ConsumoEnergiaService {
         }
     }
 
-    public ConsumoEnergia actualizarConsumoEnergia(int id_consumo, Map<String, Object> cambios) {
-        ConsumoEnergia existente = consumoEnergiaRepository.findById(id_consumo)
-                .orElseThrow(() -> new RuntimeException("Registro no encontrado"));
+    public ConsumoEnergia actualizarConsumoEnergia(int id_consumo, ConsumoEnergia consumoEnergiaParcial) {
+        // Buscar al cliente en la base de datos
+        Optional<ConsumoEnergia> consumoEnergiaExistente = consumoEnergiaRepository.findById(id_consumo);
 
-        cambios.forEach((key, value) -> {
-            Field field;
-            field = findField(ConsumoEnergia.class, key);
-            field.setAccessible(true);
-            setField(field, existente, value);
-        });
-        return consumoEnergiaRepository.save(existente);
-    }
+        if (consumoEnergiaExistente.isPresent()) {
+            ConsumoEnergia consumoEnergia = consumoEnergiaExistente.get();
 
-    private Field findField(Class<ConsumoEnergia> consumoEnergia, String key) {
-        return null;
+            // Actualizar solo los campos proporcionados (no null)
+            if (consumoEnergiaParcial.getUsuario() != null) {
+                consumoEnergia.setUsuario(consumoEnergiaParcial.getUsuario());
+            }
+
+            if (consumoEnergiaParcial.getTipoEnergia() != null) {
+                consumoEnergia.setTipoEnergia(consumoEnergiaParcial.getTipoEnergia());
+            }
+
+            if (consumoEnergiaParcial.getFecha() != null) {
+                consumoEnergia.setFecha(consumoEnergiaParcial.getFecha());
+            }
+
+            if (consumoEnergiaParcial.getConsumo() != null) {
+                consumoEnergia.setConsumo(consumoEnergiaParcial.getConsumo());
+            }
+
+            if (consumoEnergiaParcial.getUnidadMedida() != null) {
+                consumoEnergia.setUnidadMedida(consumoEnergiaParcial.getUnidadMedida());
+            }
+            // Guardar los cambios
+            return consumoEnergiaRepository.save(consumoEnergia);
+        } else {
+            throw new RuntimeException("Cliente no encontrado con ID: " + id_consumo);
+        }
     }
 
     public List<ConsumoEnergia> filtrarPorUsuario(int documento) {
@@ -81,4 +99,8 @@ public class ConsumoEnergiaService {
         }
     }
 
+    public ConsumoEnergia consultarConsumoEnergiaPorId(Integer id) {
+        return consumoEnergiaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Registro no encontrado"));
+    }
 }
