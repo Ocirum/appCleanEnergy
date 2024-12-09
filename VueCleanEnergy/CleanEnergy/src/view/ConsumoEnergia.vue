@@ -1,41 +1,56 @@
 <template>
     <Miheader></Miheader>
     <!-- INSERTAR -->
-    <fieldset>
-        <label for="">Registro de Consumo de Energía</label>
-        <form @submit.prevent="insertarConsumoEnergia">
-            <div>
-                <label for="usuarioDocumento">Documento de usuario</label>
-                <input type="text" id="documento" v-model="frm.usuario.documento" required>
-                <button type="button" @click="cargarUsuario(frm.usuario.documento)">Consultar</button>
+    <div class="row">
+        <div class="col-4"></div>
+        <form @submit.prevent="insertarConsumoEnergia" class="col-4">
+            <h2>Registro de Consumo de Energía</h2>
+            <div class="row">
+                <div class="col-6">
+                    <label for="usuarioDocumento" class="form-label">Documento de usuario</label>
+                    <input type="text" class="form-control" id="documento" v-model="frm.usuario.documento" required>
+                </div>
+                <div class="col-6 d-flex align-items-center">
+                    <button type="button" class="btn btn-primary col-12"
+                        @click="cargarUsuario(frm.usuario.documento)">Consultar</button>
+                </div>
             </div>
-            <div v-if="cargarDatosUsuario">
-                <label for="tipoEnergia">Tipo de energia</label>
-                <input type="text" id="documento" v-model="frm.tipoEnergia.tipoEnergia" required>
-                <button type="button" @click="cargarTipoEnergia(frm.tipoEnergia.tipoEnergia)">Consultar</button>
+            <div v-if="cargarDatosUsuario" class="row">
+                <div class="col-6">
+                    <label for="tipoEnergia" class="form-label">Tipo de energia</label>
+                    <input type="text" class="form-control" id="documento" v-model="frm.tipoEnergia.tipoEnergia"
+                        required>
+                </div>
+                <div class="col-6 d-flex align-items-center">
+                    <button type="button" class="btn btn-primary col-12"
+                        @click="cargarTipoEnergia(frm.tipoEnergia.tipoEnergia)">Consultar</button>
+                </div>
+
             </div>
             <div v-if="cargarDatosTipoEnergia">
                 <div>
-                    <label for="fecha">Fecha</label>
-                    <input type="date" id="fecha" v-model="frm.fecha" required>
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" v-model="frm.fecha" required>
                 </div>
                 <div>
-                    <label for="consumo">Consumo</label>
-                    <input type="text" id="consumo" v-model="frm.consumo" required>
+                    <label for="consumo" class="form-label">Consumo</label>
+                    <input type="text" class="form-control" id="consumo" v-model="frm.consumo" required>
                 </div>
                 <div>
-                    <label for="unidadMedida">Unidad de medida</label>
-                    <input type="text" id="unidadMedida" v-model="frm.unidadMedida" required>
+                    <label for="unidadMedida" class="form-label">Unidad de medida</label>
+                    <input type="text" class="form-control" id="unidadMedida" v-model="frm.unidadMedida" required>
                 </div>
             </div>
             <div v-if="cargarDatosTipoEnergia">
-                <button type="submit">Registrar</button>
+                <button type="submit" class="btn btn-primary col-12 mt-3">Registrar</button>
             </div>
         </form>
-    </fieldset>
+    </div>
     <!-- CONSULTAR -->
-    <div v-if="cargarDatos">
-        <fieldset>
+    <div class="row">
+        <div class="col-1"></div>
+        <div v-if="cargarDatos" class="col-10">
+
             <h2>Consultar Usuario</h2>
             <table>
                 <tr>
@@ -55,40 +70,47 @@
                     <td>{{ item.consumo }}</td>
                     <td>{{ item.unidadMedida }}</td>
                     <td>
-                        <button @click="eliminarConsumoEnergia(item.id_consumo)">Eliminar</button>
+                        <button @click="eliminarConsumoEnergia(item.id_consumo)" class="btn btn-danger border border-3">
+                            Eliminar</button>
                         <button
-                            @click="cargarActualizar = true; documento = item.id_consumo; buscarConsumoEnergia(item.id_consumo)">
+                            @click="cargarActualizar = true; documento = item.id_consumo; buscarConsumoEnergia(item.id_consumo)"
+                            class="btn btn-primary border border-3">
                             Actualizar
                         </button>
                     </td>
                 </tr>
             </table>
-        </fieldset>
+            <div class="col-1"></div>
+        </div>
     </div>
     <!-- ACTUALIZAR -->
     <fieldset v-if="cargarActualizar">
-        <section>
-            <div>Datos del registro de consumo</div>
-            <form @submit.prevent="actualizarConsumoEnergia">
-                <div>
-                    <label for="">ID</label>
-                    <input type="text" v-model="dataActualizar.id_consumo" disabled>
-                </div>
-                <div>
-                    <label for="">Fecha</label>
-                    <input type="date" id="fecha" v-model="dataActualizar.fecha" required>
-                </div>
-                <div>
-                    <label for="">Consumo</label>
-                    <input type="text" v-model="dataActualizar.consumo" required>
-                </div>
-                <div>
-                    <label for="">Unidad de medida</label>
-                    <input type="text" v-model="dataActualizar.unidadMedida" required>
-                </div>
-                <button type="submit">Actualizar</button>
-            </form>
-        </section>
+        <div class="row">
+            <div class="col-4"></div>
+            <section class="col-4">
+                <div>Datos del registro de consumo</div>
+                <form @submit.prevent="actualizarConsumoEnergia">
+                    <div>
+                        <label for="" class="form-label">ID</label>
+                        <input type="text" class="form-control" v-model="dataActualizar.id_consumo" disabled>
+                    </div>
+                    <div>
+                        <label for="" class="form-label">Fecha</label>
+                        <input type="date" class="form-control" id="fecha" v-model="dataActualizar.fecha" required>
+                    </div>
+                    <div>
+                        <label for="" class="form-label">Consumo</label>
+                        <input type="text" class="form-control" v-model="dataActualizar.consumo" required>
+                    </div>
+                    <div>
+                        <label for="" class="form-label">Unidad de medida</label>
+                        <input type="text" class="form-control" v-model="dataActualizar.unidadMedida" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary col-12 mt-3">Actualizar</button>
+                </form>
+            </section>
+        </div>
+        <div class="col-4"></div>
     </fieldset>
 </template>
 
@@ -169,7 +191,7 @@ const cargarTipoEnergia = async (tipoEnergia) => {
         frm.value.tipoEnergia.tipoEnergia = dataTipoEnergia.value[0].tipoEnergia
         Swal.fire({
             title: "Consulta",
-            text: "Consulta usuario ok",
+            text: "Consulta tipo de energía ok",
             icon: "success",
             confirmButtonText: "Aceptar"
         });
@@ -350,3 +372,37 @@ const eliminarConsumoEnergia = async (id_consumo) => {
 }
 
 </script>
+<style>
+table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    margin: 0 0 1em 0;
+    caption-side: top;
+    table-layout: fixed
+}
+
+caption,
+td,
+th {
+    padding: 0.3em;
+}
+
+th,
+td {
+    border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+th:lastchild,
+td:lastchild {
+    border-right: 0;
+}
+
+th {
+    width: 25%;
+    background: rgb(0, 0, 29);
+    border-top: 1px solid #000;
+    color: #fff;
+}
+</style>

@@ -1,36 +1,43 @@
 <template>
-    <Miheader></Miheader>
-    <!-- INSERTAR -->
-    <fieldset>
-        <label for="">Registro de Clientes</label>
-        <form @submit.prevent="insertarUsuario">
-            <div>
-                <label for="documento">Documento</label>
-                <input type="text" id="documento" v-model="frm.documento" required>
-            </div>
-            <div>
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" v-model="frm.nombre" required>
-            </div>
-            <div>
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" v-model="frm.correo" required>
-            </div>
-            <div>
-                <label for="correo">Password</label>
-                <input type="password" id="password" v-model="frm.password" required>
-            </div>
-            <div>
-                <button type="submit">Registrar</button>
-            </div>
-        </form>
-        <div>
-            {{ mensajeConsulta }}
+    <div class="row">
+        <div class="col-12">
+            <Miheader></Miheader>
         </div>
-    </fieldset>
+    </div>
+    <!-- INSERTAR -->
+    <div class="row">
+        <div class="col-4"></div>
+        <form @submit.prevent="insertarUsuario" class="col-4">
+            <h2>Registro de Usuarios</h2>
+            <div class="row">
+                <div class="col-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" v-model="frm.nombre" required>
+                </div>
+                <div class="col-6">
+                    <label for="documento" class="form-label">Documento</label>
+                    <input type="text" class="form-control" id="documento" v-model="frm.documento" required>
+                </div>
+            </div>
+            <div>
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" id="correo" v-model="frm.correo" required>
+            </div>
+            <div>
+                <label for="correo" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" v-model="frm.password" required>
+            </div>
+            <button type="submit" class="btn btn-primary col-12 mt-3">Registrar</button>
+        </form>
+        <div class="col-4"></div>
+    </div>
+    <div>
+        {{ mensajeConsulta }}
+    </div>
     <!-- CONSULTAR -->
-    <div v-if="cargarDatos">
-        <fieldset>
+    <div class="row">
+        <div class="col-1"></div>
+        <div v-if="cargarDatos" class="col-10">
             <h2>Consultar Usuario</h2>
             <table>
                 <tr>
@@ -44,39 +51,48 @@
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.correo }}</td>
                     <td>
-                        <button @click="eliminarUsuario(item.documento)">Eliminar</button>
-                        <button @click="cargarActualizar = true; documento = item.documento; buscarUsuario(item.documento)">
+                        <button @click="eliminarUsuario(item.documento)"
+                            class="btn btn-danger border border-3">Eliminar</button>
+                        <button
+                            @click="cargarActualizar = true; documento = item.documento; buscarUsuario(item.documento)"
+                            class="btn btn-primary border border-3">
                             Actualizar
                         </button>
                     </td>
                 </tr>
             </table>
-        </fieldset>
+        </div>
+        <div class="col-1"></div>
     </div>
     <!-- ACTUALIZAR -->
     <fieldset v-if="cargarActualizar">
-        <section>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
                 <div>Datos del cliente</div>
                 <form @submit.prevent="actualizarUsuario">
-                    <div>
-                        <label for="">Documento</label>
-                        <input type="text" v-model="dataActualizar.documento" disabled>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" v-model="dataActualizar.nombre" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="form-label">Documento</label>
+                            <input type="text" class="form-control" v-model="dataActualizar.documento" disabled>
+                        </div>
                     </div>
                     <div>
-                        <label for="">Nombre</label>
-                        <input type="text" v-model="dataActualizar.nombre" required>
+                        <label for="" class="form-label">Correo</label>
+                        <input type="text" class="form-control" v-model="dataActualizar.correo" required>
                     </div>
                     <div>
-                        <label for="">Correo</label>
-                        <input type="text" v-model="dataActualizar.correo" required>
+                        <label for="" class="form-label">Password</label>
+                        <input type="password" class="form-control" v-model="dataActualizar.password" required>
                     </div>
-                    <div>
-                        <label for="">Password</label>
-                        <input type="password" v-model="dataActualizar.password" required>
-                    </div>
-                    <button type="submit">Actualizar</button>
+                    <button type="submit" class="btn btn-primary col-12 mt-3">Actualizar</button>
                 </form>
-            </section>
+            </div>
+        </div>
     </fieldset>
 </template>
 
@@ -251,8 +267,8 @@ table {
     width: 100%;
     text-align: left;
     border-collapse: collapse;
-    margin: 0 0 1em 0;
     caption-side: top;
+    table-layout: fixed
 }
 
 caption,
@@ -265,6 +281,7 @@ th,
 td {
     border-bottom: 1px solid #000;
     border-right: 1px solid #000;
+    border-left: 1px solid #000;
 }
 
 th:lastchild,
@@ -276,6 +293,7 @@ th {
     width: 25%;
     background: rgb(0, 0, 29);
     border-top: 1px solid #000;
+    border-left: 1px solid #000;
     color: #fff;
 }
 </style>

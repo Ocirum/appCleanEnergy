@@ -1,60 +1,72 @@
 <template>
     <Miheader></Miheader>
     <!-- INSERTAR -->
-    <fieldset>
-        <label for="">Registro de Tipo de Energía</label>
-        <form @submit.prevent="insertarTipoEnergia">
+        <div class="row">
+            <div class="col-4"></div>
+            <form @submit.prevent="insertarTipoEnergia" class="col-4">
+                <h2>Registro de Tipo de Energía</h2>
+                <div>
+                    <label for="tipoEnergia" class="form-label">Tipo de Energía</label>
+                    <input type="text" class="form-control" id="tipoEnergia" v-model="frm.tipoEnergia" required>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary col-12 mt-3">Registrar</button>
+                </div>
+            </form>
             <div>
-                <label for="tipoEnergia">Tipo de Energía</label>
-                <input type="text" id="tipoEnergia" v-model="frm.tipoEnergia" required>
+                {{ mensajeConsulta }}
             </div>
-            <div>
-                <button type="submit">Registrar</button>
-            </div>
-        </form>
-        <div>
-            {{ mensajeConsulta }}
         </div>
-    </fieldset>
     <!-- CONSULTAR -->
-    <div v-if="cargarDatos">
-        <fieldset>
-            <h2>Consultar Usuario</h2>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo de Energía</th>
-                    <th>Opciones</th>
-                </tr>
-                <tr v-for="(item, index) in dataConsulta" :key="index">
-                    <td>{{ item.idEnergia }}</td>
-                    <td>{{ item.tipoEnergia }}</td>
-                    <td>
-                        <button @click="eliminarTipoEnergia(item.idEnergia)">Eliminar</button>
-                        <button @click="cargarActualizar = true; documento = item.idEnergia; buscarTipoEnergia(item.idEnergia)">
-                            Actualizar
-                        </button>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
+    <div class="row">
+        <div class="col-1"></div>
+        <div v-if="cargarDatos" class="col-10">
+            <fieldset>
+                <h2>Consultar Tipo de energia</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo de Energía</th>
+                        <th>Opciones</th>
+                    </tr>
+                    <tr v-for="(item, index) in dataConsulta" :key="index">
+                        <td>{{ item.idEnergia }}</td>
+                        <td>{{ item.tipoEnergia }}</td>
+                        <td>
+                            <button @click="eliminarTipoEnergia(item.idEnergia)"
+                                class="btn btn-danger border border-3">Eliminar</button>
+                            <button
+                                @click="cargarActualizar = true; documento = item.idEnergia; buscarTipoEnergia(item.idEnergia)"
+                                class="btn btn-primary border border-3">
+                                Actualizar
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
     </div>
     <!-- ACTUALIZAR -->
     <fieldset v-if="cargarActualizar">
-        <section>
-                <div>Datos del cliente</div>
+        <div class="row">
+            <div class="col-4"></div>
+            <section class="col-4">
+                <div>Datos del tipo de energia</div>
                 <form @submit.prevent="actualizarTipoEnergia">
-                    <div>
-                        <label for="">ID</label>
-                        <input type="text" v-model="dataActualizar.idEnergia" disabled>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="" class="form-label">ID</label>
+                            <input type="text" class="form-control" v-model="dataActualizar.idEnergia" disabled>
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="form-label">Tipo de Energia</label>
+                            <input type="text" class="form-control" v-model="dataActualizar.tipoEnergia" required>
+                        </div>
                     </div>
-                    <div>
-                        <label for="">Tipo de Energia</label>
-                        <input type="text" v-model="dataActualizar.tipoEnergia" required>
-                    </div>
-                    <button type="submit">Actualizar</button>
+                    <button type="submit" class="btn btn-primary col-12 mt-3">Actualizar</button>
                 </form>
             </section>
+        </div>
     </fieldset>
 </template>
 
@@ -226,6 +238,7 @@ table {
     border-collapse: collapse;
     margin: 0 0 1em 0;
     caption-side: top;
+    table-layout: fixed
 }
 
 caption,

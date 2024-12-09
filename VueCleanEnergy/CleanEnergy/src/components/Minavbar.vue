@@ -14,7 +14,6 @@ nav ul {
     display: flex;
     gap: 10px;
     list-style: none;
-    padding: 0;
 }
 
 nav ul li a {
