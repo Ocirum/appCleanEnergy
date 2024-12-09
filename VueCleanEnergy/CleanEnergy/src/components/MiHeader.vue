@@ -1,12 +1,16 @@
 <template>
-    <header>
-        <div class="logotitulo">
-            <h1>CleanEnergy</h1>
+    <div class="row">
+        <header>
 
-            <img src="../../public/img/Android_Robot_social_media_corporate_logo_icon-icons.com_67679.png" alt="Android.png">
-        </div>
-        <Minavbar></Minavbar>
-    </header>
+            <div class="logotitulo">
+                <h1>CleanEnergy</h1>
+                <img src="../../public/img/IconCleanEnergy.png"
+                    alt="Android.png">
+            </div>
+
+            <Minavbar></Minavbar>
+        </header>
+    </div>
 </template>
 
 <script setup>
@@ -18,7 +22,6 @@ header {
     background: rgb(0, 0, 29);
     display: flex;
     height: 200px;
-
 }
 
 h1 {
@@ -61,7 +64,7 @@ li {
     display: inline;
     margin-right: 10px;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 50px 10px;
 }
 
 a {
