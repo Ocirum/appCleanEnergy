@@ -36,6 +36,11 @@
     </div>
     <!-- CONSULTAR -->
     <div class="row">
+        <div class="col-4"></div>
+        <button @click="consultaTodo=true" class="btn btn-success col-4 mt-5 pt-3 pb-3 borde border-3" id="ConsultaTotal"><b>Consultar</b></button>
+        <div class="col-4"></div>
+    </div>
+    <div class="row" v-if="consultaTodo">
         <div class="col-1"></div>
         <div v-if="cargarDatos" class="col-10">
             <h2>Consultar Usuario</h2>
@@ -101,6 +106,7 @@ import Miheader from '@/components/MiHeader.vue';
 import { ref, onMounted } from 'vue'; //solo para las consultas
 import Swal from 'sweetalert2';
 
+const consultaTodo = ref(false)
 // INSERTAR
 const frm = ref({
     documento: "",
@@ -295,5 +301,8 @@ th {
     border-top: 1px solid #000;
     border-left: 1px solid #000;
     color: #fff;
+}
+#ConsultaTotal{
+    color: #000;
 }
 </style>

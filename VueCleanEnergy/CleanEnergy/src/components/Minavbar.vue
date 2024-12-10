@@ -5,6 +5,7 @@
             <li><router-link to="/usuario">Usuarios</router-link></li>
             <li><router-link to="/tipoEnergia">Tipos de Energía</router-link></li>
             <li><router-link to="/consumoEnergia">Consumos de Energía</router-link></li>
+            <li><router-link to="/consultar">Consultar</router-link></li>
         </ul>
     </nav>
 </template>
