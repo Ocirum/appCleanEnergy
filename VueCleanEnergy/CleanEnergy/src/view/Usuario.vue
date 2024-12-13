@@ -37,7 +37,7 @@
     <!-- CONSULTAR -->
     <div class="row">
         <div class="col-4"></div>
-        <button @click="consultaTodo=true" class="btn btn-success col-4 mt-5 pt-3 pb-3 borde border-3" id="ConsultaTotal"><b>Consultar</b></button>
+        <button @click="consultaTodo=true" class="btn btn-success col-4 mt-5 borde border-3" id="ConsultaTotal"><b>Consultar</b></button>
         <div class="col-4"></div>
     </div>
     <div class="row" v-if="consultaTodo">
@@ -288,6 +288,8 @@ td {
     border-bottom: 1px solid #000;
     border-right: 1px solid #000;
     border-left: 1px solid #000;
+
+    text-align: center;
 }
 
 th:lastchild,
